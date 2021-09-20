@@ -15,8 +15,6 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        // 'SELECT * FROM categories'
-        // $posts = DB::table('categories')->get(); // Query Builder
         $categories = Category::all();
         return view('pages.category.index')->with([
             'categories' => $categories,
@@ -88,8 +86,11 @@ class CategoryController extends Controller
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy($id)
     {
-        //
+        $category = Category::findOrFail($id);
+        $category->delete();
+
+        return redirect()->route('categories.index');
     }
 }
