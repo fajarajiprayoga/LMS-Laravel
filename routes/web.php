@@ -22,7 +22,7 @@ Route::get('/', function () {
 Route::get('/test', function () {
     return view('pages.dashboard.index');
 });
+Route::get('/coba', [TestController::class, 'test_funtion'])->name('test');
+
 
 Route::resource('categories', CategoryController::class);
-
-Route::get('/coba', [TestController::class, 'test_funtion'])->name('test');

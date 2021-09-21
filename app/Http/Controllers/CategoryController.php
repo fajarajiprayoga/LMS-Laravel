@@ -29,7 +29,10 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        $model = new Category;
+        return view('pages.category.create', compact(
+            'model'
+        ));
     }
 
     /**
@@ -40,10 +43,12 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $new_category = new Category;
-        $new_category->title = $request->get('title');
-        $new_category->description = $request->get('description');
-        $new_category->save;
+        $model = new Category;
+        $model->title = $request->title;
+        $model->description = $request->description;
+        $model->save();
+
+        return redirect('categories');
     }
 
     /**
@@ -63,9 +68,12 @@ class CategoryController extends Controller
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function edit(Category $category)
+    public function edit($id)
     {
-        //
+        $model = Category::findOrFail($id);
+        return view('pages.category.edit', compact(
+            'model'
+        ));
     }
 
     /**
@@ -77,7 +85,12 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        //
+        $model = Category::findOrFail($category->id);
+        $model->title = $request->title;
+        $model->description = $request->description;
+        $model->save();
+
+        return redirect('categories');
     }
 
     /**
